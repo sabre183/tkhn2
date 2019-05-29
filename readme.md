@@ -1,1 +1,1 @@
-A redo of my school project, this time written in Python using SQL and in OOP style.
+A redo of my school project, this time written in Python using SQL and in OOP style. lads
