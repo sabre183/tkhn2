@@ -15,4 +15,3 @@ class Worker:
         self.years = years
         self.base_salary = base_salary
         self.addons_salary = addons_salary
-
