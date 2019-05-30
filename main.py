@@ -1,4 +1,5 @@
 import os
+from workers import worker_menu
 
 
 def start_init():
@@ -19,20 +20,26 @@ def main():
     start_init()
     main_menu()
 
+
 if __name__ == "__main__":
     filename = '/database/company.db'
     main()
 
 
 def main_menu():
-    input_dict = {1: "worker ", }
+    input_dict = {1: "worker_menu()", }
     while True:
         print_main_menu()
         choice = input(">>> ")
         if choice in input_dict:
-            break
+            main_menu_control(choice)
         else:
             print("Invalid selection. Try again. \n")
+
+
+def main_menu_control(choice):
+    if choice == 1:
+        worker_menu()
 
 
 def print_main_menu():
