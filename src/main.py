@@ -1,5 +1,5 @@
 import os
-from workers import worker_menu
+from src.workers import worker_menu
 
 
 def start_init():
