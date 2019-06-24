@@ -1,1 +1,2 @@
-# def worker_menu():
+def worker_menu():
+    print('hello')
