@@ -5,7 +5,7 @@ from src.databaseClass import create_db
 
 def start_init():
     try:
-        if not os.path.isfile(filename):
+        if not os.path.isfile(filename()):
             raise FileNotFoundError
     except FileNotFoundError:
         create_db()
@@ -18,8 +18,11 @@ def main():
     main_menu()
 
 
+def filename():
+    return '/database/company.db'
+
+
 if __name__ == "__main__":
-    filename = '/database/company.db'
     main()
 
 

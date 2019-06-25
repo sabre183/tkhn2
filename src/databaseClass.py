@@ -7,10 +7,12 @@ def create_db():
     print("Enter 'y' if you want to create a new database, enter any other key if you want to abort.")
     if input(">>> ").lower() == 'y':
         with Database() as db:
+            # job info
             db.cursor.execute("create table dept("
-                              "deptno number(2,0), "
+                              "constraint ID primary key not null number,"
                               "dname varchar2(14), "
-                              "loc varchar2(13));")
+                              "loc varchar2(13)"
+                              ";")
             db.cursor.execute("")
             print("Database has been created.")
 
@@ -37,3 +39,6 @@ class Database:
 
     def commit(self):
         self.connection.commit()
+
+    def new_worker(self):
+
