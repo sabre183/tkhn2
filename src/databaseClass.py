@@ -9,12 +9,15 @@ def create_db():
         with Database() as db:
             # job info
             db.cursor.execute("create table dept("
-                              "constraint ID primary key not null number,"
-                              "dname varchar2(14), "
-                              "loc varchar2(13)"
-                              ";")
+                              "deptno number,"
+                              "constraint ID primary key (deptno)," # ID
+                              "dname varchar2(14), " # name of department
+                              "loc varchar2(13));") # location of department
             db.cursor.execute("")
             print("Database has been created.")
+    else:
+        print("Cannot proceed without database; aborted.")
+        exit(1)
 
 
 class Database:
