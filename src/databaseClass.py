@@ -1,5 +1,5 @@
 import sqlite3 as sql
-from os import rename
+from os import mkdir
 
 
 def filename():
@@ -10,12 +10,14 @@ def create_db():
     print("Database does not exist. Check if the file exists and is in proper directory.")
     print("Enter 'y' if you want to create a new database, enter any other key if you want to abort.")
     if input(">>> ").lower() == 'y':
-        rename(r'database\company.py', filename())
+        mkdir('database')
+        f = open(filename(), "+w").close()
+        # rename(r'database\company.py', filename())
         with Database() as db:
             # job info
             db.cursor.execute("create table dept("
-                              "deptno number,"
-                              "constraint ID primary key (deptno),"  # ID
+                              # "constraint ID primary key (deptno),"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
+                                                                            #  IT WORKED IN CONSOLE THO
                               "dname varchar2(14), "  # name of department
                               "loc varchar2(13));")  # location of department
             db.cursor.execute("")
