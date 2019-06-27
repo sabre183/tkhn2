@@ -1,6 +1,6 @@
 import os
-from src.workers import worker_menu
-from src.databaseClass import create_db
+from src.databaseClass import create_db, filename
+from src.menuControl import menu_control
 
 
 def start_init():
@@ -18,29 +18,12 @@ def main():
     main_menu()
 
 
-def filename():
-    return '/database/company.db'
+def main_menu():
+    print("1 - Worker Management\n"
+          "Q - Exit Program")
+    input_dict = {'1': 'workers.worker_menu()', 'q': 'exit(0)'}
+    menu_control(input_dict)
 
 
 if __name__ == "__main__":
     main()
-
-
-def main_menu():
-    input_dict = {1: "worker_menu()", }
-    while True:
-        print_main_menu()
-        choice = input(">>> ")
-        if choice in input_dict:
-            main_menu_control(choice)
-        else:
-            print("Invalid selection. Try again. \n")
-
-
-def main_menu_control(choice):
-    if choice == 1:
-        worker_menu()
-
-
-def print_main_menu():
-    print("1 - Worker management")
