@@ -1,6 +1,7 @@
 import sqlite3 as sql
 from os.path import isdir
 from os import mkdir
+from os import remove
 
 
 def filename():
@@ -18,7 +19,7 @@ def create_db():
         with Database() as db:
             # job info
             db.cursor.execute("create table dept("
-                              "deptno number,"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
+                              "deptno number autoincrement,"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
                               "dname varchar2(14), "  # name of department
                               "loc varchar2(13),"
                               "constraint ID primary key (deptno));")  # location of department
@@ -35,8 +36,12 @@ def create_db():
                               "constraint emp_id primary key (empno));")
             print("Worker table created.")
             print("Testing database...")
-            db.cursor.execute()
-            print("Database has been created.")
+            if db.test_db() != 0:
+                print("Database testing has failed. Aborting program...")
+                remove(filename)
+                exit(1)
+            else:
+                print("Database has been created.")
     else:
         print("Cannot proceed without database; aborted.")
         exit(1)
@@ -68,3 +73,12 @@ class Database:
     def new_worker(self):
         with self as db:
             db.cursor.execute("")
+
+    def test_db(self):
+        with self as db:
+            test_dept = {986, 'MAIN', 'WARSAW'}
+            db.cursor.execute("insert into dept values(?,?,?)", test_dept)
+            if db.cursor.execute("select * from dept") != test_dept:
+                print("Problem during testing database - may not be empty or not readable.")
+                db.cursor.execute("delete from dept where deptno == 986;")
+                return 1
