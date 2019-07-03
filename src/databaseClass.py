@@ -35,7 +35,7 @@ def create_db():
                               "constraint emp_id primary key (empno));")
             print("Worker table created.")
             print("Testing database...")
-
+            db.cursor.execute()
             print("Database has been created.")
     else:
         print("Cannot proceed without database; aborted.")
@@ -66,4 +66,5 @@ class Database:
         self.connection.commit()
 
     def new_worker(self):
-
+        with self as db:
+            db.cursor.execute("")
