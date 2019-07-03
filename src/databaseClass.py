@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from os.path import isdir
 from os import mkdir
 
 
@@ -10,17 +11,31 @@ def create_db():
     print("Database does not exist. Check if the file exists and is in proper directory.")
     print("Enter 'y' if you want to create a new database, enter any other key if you want to abort.")
     if input(">>> ").lower() == 'y':
-        mkdir('database')
+        if isdir('database'):
+            mkdir('database')
         f = open(filename(), "+w").close()
-        # rename(r'database\company.py', filename())
+        print("File created.")
         with Database() as db:
             # job info
             db.cursor.execute("create table dept("
-                              # "constraint ID primary key (deptno),"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
-                                                                            #  IT WORKED IN CONSOLE THO
+                              "deptno number,"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
                               "dname varchar2(14), "  # name of department
-                              "loc varchar2(13));")  # location of department
-            db.cursor.execute("")
+                              "loc varchar2(13),"
+                              "constraint ID primary key (deptno));")  # location of department
+            print("Department table created.")
+            db.cursor.execute("create table emp("
+                              "empno number,"
+                              "empname varchar2(10),"
+                              "empsurname varchar2(10),"
+                              "job varchar2(10),"
+                              "hiredate date,"
+                              "salary number,"
+                              "deptno number,"
+                              "constraint fk_deptno foreign key (deptno) references dept (deptno),"
+                              "constraint emp_id primary key (empno));")
+            print("Worker table created.")
+            print("Testing database...")
+
             print("Database has been created.")
     else:
         print("Cannot proceed without database; aborted.")
@@ -50,4 +65,5 @@ class Database:
     def commit(self):
         self.connection.commit()
 
-    # def new_worker(self):
+    def new_worker(self):
+

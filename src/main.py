@@ -19,10 +19,11 @@ def main():
 
 
 def main_menu():
-    print("1 - Worker Management\n"
-          "Q - Exit Program")
-    input_dict = {'1': 'workers.worker_menu()', 'q': 'exit(0)'}
-    menu_control(input_dict)
+    while True:
+        print("1 - Worker Management\n"
+              "Q - Exit Program")
+        input_dict = {'1': 'workers.worker_menu()', 'q': 'exit(0)'}
+        return menu_control(input_dict)
 
 
 if __name__ == "__main__":
