@@ -1,7 +1,4 @@
 import sqlite3 as sql
-from os.path import isdir
-from os import mkdir
-from os import remove
 
 
 def filename():
@@ -35,12 +32,12 @@ class Database:
         with self as db:
             db.cursor.execute("")
 
-    def test_db(self):
-        with self as db:
-            test_dept = {986, 'MAIN', 'WARSAW'}
-            db.cursor.execute("insert into dept values(?,?,?)", test_dept)
-            if db.cursor.execute("select * from dept") != test_dept:
-                print("Problem during testing database - may not be empty or not readable.")
-                db.cursor.execute("delete from dept where deptno == 986;")
-                return 1
-        # unfinished
+    # def test_db(self):
+    #     with self as db:
+    #         test_dept = {986, 'MAIN', 'WARSAW'}
+    #         db.cursor.execute("insert into dept values(?,?,?)", test_dept)
+    #         if db.cursor.execute("select * from dept") != test_dept:
+    #             print("Problem during testing database - may not be empty or not readable.")
+    #             db.cursor.execute("delete from dept where deptno == 986;")
+    #             return 1
+    #     # unfinished

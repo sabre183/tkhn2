@@ -18,14 +18,14 @@ def create_db():
     print("Database does not exist. Check if the file exists and is in proper directory.")
     print("Enter 'y' if you want to create a new database, enter any other key if you want to abort.")
     if input(">>> ").lower() == 'y':
-        if isdir('database'):
+        if not isdir('database'):
             os.mkdir('database')
         f = open(filename(), "+w").close()
         print("File created.")
         with Database() as db:
             # job info
             db.cursor.execute("create table dept("
-                              "deptno number autoincrement,"  # ID # TODO: THIS FIELD IS WRONG. FIX IT FAM. 
+                              "deptno numberq," 
                               "dname varchar2(14), "  # name of department
                               "loc varchar2(13),"
                               "constraint ID primary key (deptno));")  # location of department
@@ -41,13 +41,13 @@ def create_db():
                               "constraint fk_deptno foreign key (deptno) references dept (deptno),"
                               "constraint emp_id primary key (empno));")
             print("Worker table created.")
-            print("Testing database...")
-            if db.test_db() != 0:
-                print("Database testing has failed. Aborting program...")
-                os.remove(filename())
-                exit(1)
-            else:
-                print("Database has been created.")
+        print("Testing database...")
+        if db.test_db() != 0:
+            print("Database testing has failed. Aborting program...")
+            os.remove(filename())
+            exit(1)
+        else:
+            print("Database has been created.")
     else:
         print("Cannot proceed without database; aborted.")
         exit(1)
